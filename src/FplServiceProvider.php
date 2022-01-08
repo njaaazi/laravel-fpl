@@ -2,9 +2,9 @@
 
 namespace Njaaazi\Fpl;
 
+use Njaaazi\Fpl\Commands\FplCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Njaaazi\Fpl\Commands\FplCommand;
 
 class FplServiceProvider extends PackageServiceProvider
 {
