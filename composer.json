@@ -1,0 +1,62 @@
+{
+    "name": "njaaazi/laravel-fpl",
+    "description": "This package provides FPL data for managers and players",
+    "keywords": [
+        "njaaazi",
+        "laravel",
+        "laravel-fpl"
+    ],
+    "homepage": "https://github.com/njaaazi/laravel-fpl",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Njazi Shehu",
+            "email": "shehu.nj@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "spatie/laravel-package-tools": "^1.9.2",
+        "illuminate/contracts": "^8.73"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^5.10",
+        "orchestra/testbench": "^6.22",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpunit/phpunit": "^9.5",
+        "spatie/laravel-ray": "^1.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "Njaaazi\\Fpl\\": "src",
+            "Njaaazi\\Fpl\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Njaaazi\\Fpl\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Njaaazi\\Fpl\\FplServiceProvider"
+            ],
+            "aliases": {
+                "Fpl": "Njaaazi\\Fpl\\Facades\\Fpl"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
