@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Njaaazi\\Fpl\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Njaaazi\\FplClient\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

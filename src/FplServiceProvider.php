@@ -17,9 +17,9 @@ class FplServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-fpl')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-fpl_table')
-            ->hasCommand(FplCommand::class);
+            ->hasConfigFile();
+            // ->hasViews()
+            // ->hasMigration('create_laravel-fpl_table')
+            // ->hasCommand(FplCommand::class);
     }
 }
