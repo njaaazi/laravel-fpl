@@ -3,6 +3,7 @@
 namespace Njaaazi\Fpl\Tests;
 
 use Illuminate\Support\Facades\Http;
+use Njaaazi\Fpl\Facades\Fpl;
 use Njaaazi\Fpl\FplClient;
 
 class FplClientTest extends TestCase
@@ -18,7 +19,7 @@ class FplClientTest extends TestCase
             ),
         ]);
 
-        $generalInfo = FplClient::generalInfo();
+        $generalInfo = Fpl::generalInfo();
 
         $this->assertIsIterable($generalInfo);
         $this->assertCount(8, $generalInfo);
@@ -35,9 +36,26 @@ class FplClientTest extends TestCase
             ),
         ]);
 
-        $fixtures = FplClient::allFixtures();
+        $fixtures = Fpl::allFixtures();
 
         $this->assertIsIterable($fixtures);
         $this->assertCount(380, $fixtures);
+    }
+
+    /** @test */
+    public function it_returns_a_collection_of_specific_gameweek_fixtures()
+    {
+        Http::fake([
+            'https://fantasy.premierleague.com/api/fixtures/?event=1'
+            => Http::response(
+                json_decode(file_get_contents('tests/stubs/first-gameweek-fixtures.json'), true),
+                200
+            ),
+        ]);
+
+        $firstGameweekFixtures = Fpl::gameweekFixtures();
+
+        $this->assertIsIterable($firstGameweekFixtures);
+        $this->assertCount(10, $firstGameweekFixtures);
     }
 }
