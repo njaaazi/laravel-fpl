@@ -4,12 +4,10 @@ namespace Njaaazi\Fpl;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class FplClient
 {
-
-    const API_URL = 'https://fantasy.premierleague.com/api';
+    public const API_URL = 'https://fantasy.premierleague.com/api';
 
     /**
      * @return Collection
@@ -31,7 +29,7 @@ class FplClient
      */
     public static function allFixtures(bool $upcomingFixturesOnly = false): Collection
     {
-        return Http::get(self::API_URL.'/fixtures/',[
+        return Http::get(self::API_URL.'/fixtures/', [
             'future' => $upcomingFixturesOnly,
         ])->collect();
     }
@@ -48,5 +46,4 @@ class FplClient
             'event' => $gameweek,
         ])->collect();
     }
-
 }
