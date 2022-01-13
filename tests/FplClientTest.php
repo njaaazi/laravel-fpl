@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Njaaazi\Fpl\FplClient;
 
 
-class ExampleTest extends TestCase
+class FplClientTest extends TestCase
 {
 
     /** @test */
