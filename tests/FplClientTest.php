@@ -4,7 +4,6 @@ namespace Njaaazi\Fpl\Tests;
 
 use Illuminate\Support\Facades\Http;
 use Njaaazi\Fpl\Facades\Fpl;
-use Njaaazi\Fpl\FplClient;
 
 class FplClientTest extends TestCase
 {
