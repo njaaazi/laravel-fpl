@@ -17,7 +17,7 @@ class FplClient
      * Returns all general information in one place, for events, game_settings,
      * phases, teams, total_players, elements and elements_type
      */
-    public function generalInfo(): Collection
+    public static function generalInfo(): Collection
     {
         return Http::get(self::API_URL.'/bootstrap-static/')->collect();
     }
@@ -29,7 +29,7 @@ class FplClient
      * Returns all fixtures for the season, if set to true it will only
      * return upcomingFixtures
      */
-    public function allFixtures(bool $upcomingFixturesOnly = false): Collection
+    public static function allFixtures(bool $upcomingFixturesOnly = false): Collection
     {
         return Http::get(self::API_URL.'/fixtures/',[
             'future' => $upcomingFixturesOnly,
