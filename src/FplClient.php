@@ -28,16 +28,26 @@ class FplClient
     }
 
     /**
-     * @param bool $upcomingFixturesOnly
      * @return Collection
      *
-     * Returns all fixtures for the season, if set to true it will only
-     * return upcomingFixtures
+     * Returns all fixtures for the season.
      */
-    public function allFixtures(bool $upcomingFixturesOnly = false): Collection
+    public function allFixtures(): Collection
     {
         return Http::get($this->baseUrl . "/fixtures/", [
-            "future" => $upcomingFixturesOnly,
+            "future" => false,
+        ])->collect();
+    }
+
+    /**
+     * @return Collection
+     *
+     * Returns all upcomingFixtures only for the season.
+     */
+    public function allUpcomingFixtures(): Collection
+    {
+        return Http::get($this->baseUrl . "/fixtures/", [
+            "future" => true,
         ])->collect();
     }
 
