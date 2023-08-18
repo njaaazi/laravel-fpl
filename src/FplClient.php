@@ -13,7 +13,7 @@ class FplClient
 
     public function __construct()
     {
-        $this->baseUrl =  config("fpl.base-url");
+        $this->baseUrl = config("fpl.base-url");
     }
 
     /**
