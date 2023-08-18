@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Njaaazi\Fpl;
 
 use Illuminate\Support\Collection;
@@ -7,7 +9,12 @@ use Illuminate\Support\Facades\Http;
 
 class FplClient
 {
-    public const API_URL = 'https://fantasy.premierleague.com/api';
+    private string $baseUrl;
+
+    public function __construct()
+    {
+        $this->baseUrl =  config("fpl.base-url");
+    }
 
     /**
      * @return Collection
@@ -17,7 +24,7 @@ class FplClient
      */
     public function generalInfo(): Collection
     {
-        return Http::get(self::API_URL.'/bootstrap-static/')->collect();
+        return Http::get($this->baseUrl . "/bootstrap-static/")->collect();
     }
 
     /**
@@ -29,8 +36,8 @@ class FplClient
      */
     public function allFixtures(bool $upcomingFixturesOnly = false): Collection
     {
-        return Http::get(self::API_URL.'/fixtures/', [
-            'future' => $upcomingFixturesOnly,
+        return Http::get($this->baseUrl . "/fixtures/", [
+            "future" => $upcomingFixturesOnly,
         ])->collect();
     }
 
@@ -42,8 +49,8 @@ class FplClient
      */
     public function gameweekFixtures(int $gameweek = 1): Collection
     {
-        return Http::get(self::API_URL.'/fixtures/', [
-            'event' => $gameweek,
+        return Http::get($this->baseUrl . "/fixtures/", [
+            "event" => $gameweek,
         ])->collect();
     }
 }

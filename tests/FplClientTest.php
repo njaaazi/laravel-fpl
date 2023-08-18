@@ -1,60 +1,60 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Njaaazi\Fpl\Tests;
 
-use Illuminate\Support\Facades\Http;
 use Njaaazi\Fpl\Facades\Fpl;
+use Illuminate\Support\Facades\Http;
 
 class FplClientTest extends TestCase
 {
-    /** @test */
-    public function it_returns_a_collection_of_general_info()
+    public function setUp(): void
     {
+        parent::setUp();
+
         Http::fake([
-            'https://fantasy.premierleague.com/api/bootstrap-static/'
-            => Http::response(
-                json_decode(file_get_contents('tests/stubs/bootstrap-static.json'), true),
-                200
+            "*/bootstrap-static/" => Http::response(
+                $this->loadFixture("bootstrap-static.json"),
+                200,
+            ),
+            "*/fixtures/" => Http::response(
+                $this->loadFixture("fixtures.json"),
+                200,
+            ),
+            "*/fixtures/?event=1" => Http::response(
+                $this->loadFixture("first-gameweek-fixtures.json"),
+                200,
             ),
         ]);
+    }
 
+    public function testItReturnsACollectionOfGeneralInfo()
+    {
         $generalInfo = Fpl::generalInfo();
 
         $this->assertIsIterable($generalInfo);
         $this->assertCount(8, $generalInfo);
     }
 
-    /** @test */
-    public function it_returns_a_collection_of_all_fixtures()
+    public function testItReturnsACollectionOfAllFixtures()
     {
-        Http::fake([
-            'https://fantasy.premierleague.com/api/fixtures/'
-            => Http::response(
-                json_decode(file_get_contents('tests/stubs/fixtures.json'), true),
-                200
-            ),
-        ]);
-
         $fixtures = Fpl::allFixtures();
 
         $this->assertIsIterable($fixtures);
         $this->assertCount(380, $fixtures);
     }
 
-    /** @test */
-    public function it_returns_a_collection_of_specific_gameweek_fixtures()
+    public function testItReturnsACollectionOfSpecificGameweekFixtures()
     {
-        Http::fake([
-            'https://fantasy.premierleague.com/api/fixtures/?event=1'
-            => Http::response(
-                json_decode(file_get_contents('tests/stubs/first-gameweek-fixtures.json'), true),
-                200
-            ),
-        ]);
-
         $firstGameweekFixtures = Fpl::gameweekFixtures();
 
         $this->assertIsIterable($firstGameweekFixtures);
         $this->assertCount(10, $firstGameweekFixtures);
+    }
+
+    protected function loadFixture(string $fileName): string
+    {
+        return file_get_contents(dirname(__DIR__) . "/tests/Fixtures/{$fileName}");
     }
 }

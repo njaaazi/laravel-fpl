@@ -1,4 +1,4 @@
-# This package provides FPL data for managers and players
+# Fantasy Premier League API wrapper for Laravel.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/njaaazi/laravel-fpl.svg?style=flat-square)](https://packagist.org/packages/njaaazi/laravel-fpl)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/njaaazi/laravel-fpl/run-tests?label=tests)](https://github.com/njaaazi/laravel-fpl/actions?query=workflow%3Arun-tests+branch%3Amain)
