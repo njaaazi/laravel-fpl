@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Njaaazi\Fpl\Facades;
 
 use Illuminate\Support\Collection;
