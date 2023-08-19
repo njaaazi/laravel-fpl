@@ -1,4 +1,4 @@
-# Fantasy Premier League API wrapper for Laravel.
+# Fantasy Premier League API wrapper for Laravel. (WIP, not ready for production use)
 
 [![Tests](https://github.com/njaaazi/laravel-fpl/actions/workflows/run-tests.yml/badge.svg)](https://github.com/njaaazi/laravel-fpl/actions/workflows/run-tests.yml)
 [![codecov](https://codecov.io/gh/njaaazi/laravel-fpl/graph/badge.svg?token=F6BDYJJ5E4)](https://codecov.io/gh/njaaazi/laravel-fpl)
