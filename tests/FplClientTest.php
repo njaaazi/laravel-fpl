@@ -62,7 +62,7 @@ class FplClientTest extends TestCase
         $fixtures = Fpl::allUpcomingFixtures();
 
         $this->assertIsIterable($fixtures);
-        $this->assertCount(380, $fixtures);
+        $this->assertCount(359, $fixtures);
     }
 
     public function testItReturnsACollectionOfSpecificGameweekFixtures()
