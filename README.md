@@ -5,7 +5,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/njaaazi/laravel-fpl.svg?style=flat-square)](https://packagist.org/packages/njaaazi/laravel-fpl)
 [![Total Downloads](https://img.shields.io/packagist/dt/njaaazi/laravel-fpl.svg?style=flat-square)](https://packagist.org/packages/njaaazi/laravel-fpl)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Fantasy Premier League API wrapper for Laravel.
 
 ## Installation
 
@@ -25,17 +25,40 @@ This is the contents of the published config file:
 
 ```php
 return [
+    "base-url" => env(
+        "FPL_BASE_URL",
+        "https://fantasy.premierleague.com/api",
+    ),
 ];
 ```
 
 ## Usage
 
 ```php
-$laravel-fpl = new Njaaazi\Fpl();
-echo $laravel-fpl->echoPhrase('Hello, Njaaazi!');
+use Njaaazi\Fpl\FplClient;
+
+$fpl = new FplClient;
+
+$generalInfo = $fpl->generalInfo();
+$allFixtures = $fpl->allFixtures();
+```
+
+### Using Facade
+
+```php
+use Njaaazi\Fpl\Facades\Fpl;
+
+$generalInfo = Fpl::generalInfo();
+$allFixtures = Fpl::allFixtures();
 ```
 
 ## Testing
+
+```bash
+vendor/bin/phpunit
+```
+
+or
 
 ```bash
 composer test

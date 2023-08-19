@@ -6,6 +6,7 @@ namespace Njaaazi\Fpl\Tests;
 
 use Njaaazi\Fpl\Facades\Fpl;
 use Illuminate\Support\Facades\Http;
+use Njaaazi\Fpl\FplClient;
 
 class FplClientTest extends TestCase
 {
@@ -43,7 +44,8 @@ class FplClientTest extends TestCase
 
     public function testItReturnsACollectionOfGeneralInfo()
     {
-        $generalInfo = Fpl::generalInfo();
+        // $generalInfo = Fpl::generalInfo();
+        $generalInfo = (new FplClient())->generalInfo();
 
         $this->assertIsIterable($generalInfo);
         $this->assertCount(8, $generalInfo);
