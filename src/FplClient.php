@@ -63,4 +63,28 @@ class FplClient
             "event" => $gameweek,
         ])->collect();
     }
+
+    /**
+     * @param int $playerId
+     * @return Collection
+     *
+     * Returns a player’s detailed information.
+     */
+    public function playersDetailedData(int $playerId): Collection
+    {
+        return Http::get($this->baseUrl . "/element-summary/{$playerId}")
+            ->collect();
+    }
+
+    /**
+     * @param int $gameweek
+     * @return Collection
+     *
+     * Returns a list of player's information in that specific Gameweek.
+     */
+    public function gameweekLiveData(int $gameweek): Collection
+    {
+        return Http::get($this->baseUrl . "/event/{$gameweek}/live")
+            ->collect();
+    }
 }

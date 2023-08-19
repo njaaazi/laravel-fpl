@@ -26,6 +26,14 @@ class FplClientTest extends TestCase
                 $this->loadFixture("first-gameweek-fixtures.json"),
                 200,
             ),
+            "*/element-summary/*/" => Http::response(
+                $this->loadFixture("element-summary.json"),
+                200,
+            ),
+            "*/event/*/live/" => Http::response(
+                $this->loadFixture("event.json"),
+                200,
+            ),
         ]);
     }
 
@@ -51,6 +59,20 @@ class FplClientTest extends TestCase
 
         $this->assertIsIterable($firstGameweekFixtures);
         $this->assertCount(10, $firstGameweekFixtures);
+    }
+
+    public function testItReturnsPlayersDetailedData()
+    {
+        $playersDetailedData = Fpl::playersDetailedData(4);
+
+        $this->assertCount(3, $playersDetailedData);
+    }
+
+    public function testItReturnsGameweekLiveData()
+    {
+        $playersDetailedData = Fpl::gameweekLiveData(4);
+
+        $this->assertCount(1, $playersDetailedData);
     }
 
     protected function loadFixture(string $fileName): string
