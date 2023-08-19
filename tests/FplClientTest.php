@@ -22,6 +22,10 @@ class FplClientTest extends TestCase
                 $this->loadFixture("fixtures.json"),
                 200,
             ),
+            "*/fixtures/?future=1" => Http::response(
+                $this->loadFixture("upcoming-fixtures.json"),
+                200,
+            ),
             "*/fixtures/?event=1" => Http::response(
                 $this->loadFixture("first-gameweek-fixtures.json"),
                 200,
@@ -46,6 +50,14 @@ class FplClientTest extends TestCase
     }
 
     public function testItReturnsACollectionOfAllFixtures()
+    {
+        $fixtures = Fpl::allFixtures();
+
+        $this->assertIsIterable($fixtures);
+        $this->assertCount(380, $fixtures);
+    }
+
+    public function testItReturnsACollectionOfAllUpcomingFixtures()
     {
         $fixtures = Fpl::allFixtures();
 
