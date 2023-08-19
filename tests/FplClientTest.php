@@ -59,7 +59,7 @@ class FplClientTest extends TestCase
 
     public function testItReturnsACollectionOfAllUpcomingFixtures()
     {
-        $fixtures = Fpl::allFixtures();
+        $fixtures = Fpl::allUpcomingFixtures();
 
         $this->assertIsIterable($fixtures);
         $this->assertCount(380, $fixtures);

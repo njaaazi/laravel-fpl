@@ -11,8 +11,11 @@ use Njaaazi\Fpl\FplClient;
 /**
  * @see \Njaaazi\Fpl\FplClient
  * @method static Collection generalInfo()
- * @method static Collection allFixtures(bool $upcomingFixturesOnly = false)
+ * @method static Collection allFixtures()
+ * @method static Collection allUpcomingFixtures()
  * @method static Collection gameweekFixtures(int $gameweek = 1)
+ * @method static Collection playersDetailedData(int $playerId)
+ * @method static Collection gameweekLiveData(int $gameweek)
  */
 class Fpl extends Facade
 {
