@@ -84,7 +84,19 @@ class FplClient
      */
     public function gameweekLiveData(int $gameweek): Collection
     {
-        return Http::get($this->baseUrl . "/event/{$gameweek}/live")
+        return Http::get($this->baseUrl . "/event/{$gameweek}/live/")
             ->collect();
+    }
+
+    /**
+     * @param int $managerId
+     * @return array
+     *
+     * This endpoint returns managers or FPL users basic information.
+     */
+    public function managerBasicInformation(int $managerId): array
+    {
+        return Http::get($this->baseUrl . "/entry/{$managerId}/")
+            ->json();
     }
 }

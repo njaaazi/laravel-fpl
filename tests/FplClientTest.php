@@ -39,6 +39,10 @@ class FplClientTest extends TestCase
                 $this->loadFixture("event.json"),
                 200,
             ),
+            "*/entry/*/" => Http::response(
+                $this->loadFixture("manager-basic-information.json"),
+                200,
+            ),
         ]);
     }
 
@@ -87,6 +91,14 @@ class FplClientTest extends TestCase
         $playersDetailedData = Fpl::gameweekLiveData(4);
 
         $this->assertCount(1, $playersDetailedData);
+    }
+
+    public function testItReturnsManagersBasicInformation()
+    {
+        $managerBasicInformation = Fpl::managerBasicInformation(58206);
+
+        $this->assertIsArray($managerBasicInformation);
+        $this->assertSame(58206, data_get($managerBasicInformation, "id"));
     }
 
     protected function loadFixture(string $fileName): string

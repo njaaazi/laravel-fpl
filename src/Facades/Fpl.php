@@ -16,6 +16,7 @@ use Njaaazi\Fpl\FplClient;
  * @method static Collection gameweekFixtures(int $gameweek = 1)
  * @method static Collection playersDetailedData(int $playerId)
  * @method static Collection gameweekLiveData(int $gameweek)
+ * @method static array managerBasicInformation(int $managerId)
  */
 class Fpl extends Facade
 {
