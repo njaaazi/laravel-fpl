@@ -99,4 +99,31 @@ class FplClient
         return Http::get($this->baseUrl . "/entry/{$managerId}/")
             ->json();
     }
+
+    /**
+     * @param int $managerId
+     * @return array
+     *
+     * This endpoint returns a managers data from previous Gameweeks (current),
+     * previous seasons (past), and chips that already used during this season.
+     */
+    public function managerHistory(int $managerId): array
+    {
+        return Http::get($this->baseUrl . "/entry/{$managerId}/history/")
+            ->json();
+    }
+
+    /**
+     * @param int $leagueId
+     * @param int $page
+     * @return array
+     *
+     * This endpoint returns the classic league standings.
+     */
+    public function classicLeagueStandings(int $leagueId, int $page = 1): array
+    {
+        return Http::get($this->baseUrl . "/leagues-classic/$leagueId/standings/", [
+            "page_standing" => $page,
+        ])->json();
+    }
 }

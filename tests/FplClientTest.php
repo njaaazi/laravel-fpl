@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Njaaazi\Fpl\Tests;
 
-use Njaaazi\Fpl\Facades\Fpl;
 use Illuminate\Support\Facades\Http;
 use Njaaazi\Fpl\FplClient;
 
@@ -39,8 +38,16 @@ class FplClientTest extends TestCase
                 $this->loadFixture("event.json"),
                 200,
             ),
+            "*/entry/*/history/" => Http::response(
+                $this->loadFixture("manager-history.json"),
+                200,
+            ),
             "*/entry/*/" => Http::response(
                 $this->loadFixture("manager-basic-information.json"),
+                200,
+            ),
+            "*/leagues-classic/*/standings/?page_standings=*" => Http::response(
+                $this->loadFixture("classic-league-standings.json"),
                 200,
             ),
         ]);
@@ -48,8 +55,9 @@ class FplClientTest extends TestCase
 
     public function testItReturnsACollectionOfGeneralInfo()
     {
-        // $generalInfo = Fpl::generalInfo();
-        $generalInfo = (new FplClient())->generalInfo();
+        $fpl = new FplClient();
+
+        $generalInfo = $fpl->generalInfo();
 
         $this->assertIsIterable($generalInfo);
         $this->assertCount(8, $generalInfo);
@@ -57,7 +65,9 @@ class FplClientTest extends TestCase
 
     public function testItReturnsACollectionOfAllFixtures()
     {
-        $fixtures = Fpl::allFixtures();
+        $fpl = new FplClient();
+
+        $fixtures = $fpl->allFixtures();
 
         $this->assertIsIterable($fixtures);
         $this->assertCount(380, $fixtures);
@@ -65,7 +75,9 @@ class FplClientTest extends TestCase
 
     public function testItReturnsACollectionOfAllUpcomingFixtures()
     {
-        $fixtures = Fpl::allUpcomingFixtures();
+        $fpl = new FplClient();
+
+        $fixtures = $fpl->allUpcomingFixtures();
 
         $this->assertIsIterable($fixtures);
         $this->assertCount(359, $fixtures);
@@ -73,7 +85,9 @@ class FplClientTest extends TestCase
 
     public function testItReturnsACollectionOfSpecificGameweekFixtures()
     {
-        $firstGameweekFixtures = Fpl::gameweekFixtures();
+        $fpl = new FplClient();
+
+        $firstGameweekFixtures = $fpl->gameweekFixtures();
 
         $this->assertIsIterable($firstGameweekFixtures);
         $this->assertCount(10, $firstGameweekFixtures);
@@ -81,24 +95,52 @@ class FplClientTest extends TestCase
 
     public function testItReturnsPlayersDetailedData()
     {
-        $playersDetailedData = Fpl::playersDetailedData(4);
+        $fpl = new FplClient();
+
+        $playersDetailedData = $fpl->playersDetailedData(4);
 
         $this->assertCount(3, $playersDetailedData);
     }
 
     public function testItReturnsGameweekLiveData()
     {
-        $playersDetailedData = Fpl::gameweekLiveData(4);
+        $fpl = new FplClient();
+
+        $playersDetailedData = $fpl->gameweekLiveData(4);
 
         $this->assertCount(1, $playersDetailedData);
     }
 
     public function testItReturnsManagersBasicInformation()
     {
-        $managerBasicInformation = Fpl::managerBasicInformation(58206);
+        $fpl = new FplClient();
+
+        $managerBasicInformation = $fpl->managerBasicInformation(58206);
 
         $this->assertIsArray($managerBasicInformation);
         $this->assertSame(58206, data_get($managerBasicInformation, "id"));
+    }
+
+    public function testItReturnsManagersHistory()
+    {
+        $fpl = new FplClient();
+
+        $managerHistory = $fpl->managerHistory(58206);
+
+        $this->assertIsArray($managerHistory);
+        $this->assertArrayHasKey("current", $managerHistory);
+        $this->assertArrayHasKey("past", $managerHistory);
+    }
+
+    public function testItReturnsClassicLeagueStandings()
+    {
+        $fpl = new FplClient();
+
+        $league = $fpl->classicLeagueStandings(638);
+
+        $this->assertIsArray($league);
+        $this->assertArrayHasKey("league", $league);
+        $this->assertArrayHasKey("standings", $league);
     }
 
     protected function loadFixture(string $fileName): string
