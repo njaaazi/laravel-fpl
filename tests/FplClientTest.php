@@ -42,6 +42,10 @@ class FplClientTest extends TestCase
                 $this->loadFixture("manager-history.json"),
                 200,
             ),
+            "*/entry/*/event/*/picks/" => Http::response(
+                $this->loadFixture("managers-team-per-gameweek.json"),
+                200,
+            ),
             "*/entry/*/" => Http::response(
                 $this->loadFixture("manager-basic-information.json"),
                 200,
@@ -141,6 +145,19 @@ class FplClientTest extends TestCase
         $this->assertIsArray($league);
         $this->assertArrayHasKey("league", $league);
         $this->assertArrayHasKey("standings", $league);
+    }
+
+    public function testItReturnsManagersTeamPerGameweek()
+    {
+        $fpl = new FplClient();
+
+        $managersTeam = $fpl->managersTeam(58206, 2);
+
+        $this->assertIsArray($managersTeam);
+        $this->assertArrayHasKey("entry_history", $managersTeam);
+        $this->assertArrayHasKey("picks", $managersTeam);
+        $this->assertArrayHasKey("automatic_subs", $managersTeam);
+        $this->assertArrayHasKey("active_chip", $managersTeam);
     }
 
     protected function loadFixture(string $fileName): string

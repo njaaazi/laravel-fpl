@@ -126,4 +126,17 @@ class FplClient
             "page_standing" => $page,
         ])->json();
     }
+
+    /**
+     * @param int $managerId
+     * @param int $gameweek
+     * @return array
+     *
+     * This endpoint returns the latest or currently active Gameweek.
+     */
+    public function managersTeam(int $managerId, int $gameweek): array
+    {
+        return Http::get($this->baseUrl . "/entry/$managerId/event/$gameweek/picks/")
+            ->json();
+    }
 }
