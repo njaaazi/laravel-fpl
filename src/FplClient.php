@@ -139,4 +139,18 @@ class FplClient
         return Http::get($this->baseUrl . "/entry/$managerId/event/$gameweek/picks/")
             ->json();
     }
+
+    /**
+     * @param int $managerId
+     * @param int $gameweek
+     * @return array
+     *
+     * This is the endpoint to confirms the updates for bonus points
+     * and league standings.
+     */
+    public function eventStatus(): array
+    {
+        return Http::get($this->baseUrl . "/event-status/")
+            ->json();
+    }
 }
