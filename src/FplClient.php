@@ -141,8 +141,6 @@ class FplClient
     }
 
     /**
-     * @param int $managerId
-     * @param int $gameweek
      * @return array
      *
      * This is the endpoint to confirms the updates for bonus points
@@ -151,6 +149,28 @@ class FplClient
     public function eventStatus(): array
     {
         return Http::get($this->baseUrl . "/event-status/")
+            ->json();
+    }
+
+    /**
+     * @param int $gameweek
+     * @return array
+     * This returns the team consists of each Gameweeks best performer.
+     */
+    public function dreamTeam(int $gameweek): array
+    {
+        return Http::get($this->baseUrl . "/dream-team/$gameweek/")
+            ->json();
+    }
+
+
+    /**
+     * @return array
+     * This returns the team consists of each Gameweeks best performer.
+     */
+    public function setPieceTakerNotes(): array
+    {
+        return Http::get($this->baseUrl . "/set-piece-notes/")
             ->json();
     }
 }

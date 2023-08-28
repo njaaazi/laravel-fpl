@@ -58,6 +58,14 @@ class FplClientTest extends TestCase
                 $this->loadFixture("event-status.json"),
                 200,
             ),
+            "*/dream-team/*/" => Http::response(
+                $this->loadFixture("dream-team.json"),
+                200,
+            ),
+            "*/set-piece-notes/" => Http::response(
+                $this->loadFixture("set-piece-notes.json"),
+                200,
+            ),
         ]);
     }
 
@@ -173,6 +181,28 @@ class FplClientTest extends TestCase
         $this->assertIsArray($eventStatus);
         $this->assertArrayHasKey("status", $eventStatus);
         $this->assertArrayHasKey("leagues", $eventStatus);
+    }
+
+    public function testItReturnsDreamTeam()
+    {
+        $fpl = new FplClient();
+
+        $dreamTeam = $fpl->dreamTeam(2);
+
+        $this->assertIsArray($dreamTeam);
+        $this->assertArrayHasKey("top_player", $dreamTeam);
+        $this->assertArrayHasKey("team", $dreamTeam);
+    }
+
+    public function testItReturnSetPieceTakerNotes()
+    {
+        $fpl = new FplClient();
+
+        $dreamTeam = $fpl->setPieceTakerNotes();
+
+        $this->assertIsArray($dreamTeam);
+        $this->assertArrayHasKey("last_updated", $dreamTeam);
+        $this->assertArrayHasKey("teams", $dreamTeam);
     }
 
     protected function loadFixture(string $fileName): string
